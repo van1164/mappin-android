@@ -1,19 +1,23 @@
-package com.example.mapin
+package com.example.mapin.ui.main_content
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mapin.databinding.FragmentFirstBinding
+import com.example.mapin.ui.main_content.MainContentAdapter
 
-class FirstFragment : Fragment() {
+class MainContentFragment : Fragment() {
 
     private var _binding: FragmentFirstBinding? = null
 
 
     private val binding get() = _binding!!
+    private val viewModel: MainContentViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,10 +31,9 @@ class FirstFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val mainRecyclerView = binding.mainContentRecyclerView
+        mainRecyclerView.adapter = MainContentAdapter()
 
-        binding.buttonFirst.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-        }
     }
 
     override fun onDestroyView() {
