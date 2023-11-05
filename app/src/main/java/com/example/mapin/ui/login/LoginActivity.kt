@@ -32,6 +32,7 @@ class LoginActivity : AppCompatActivity() {
             Log.e(TAG, "카카오계정으로 로그인 실패", error)
         } else if (token != null) {
             Log.i(TAG, "카카오계정으로 로그인 성공 ${token.accessToken}")
+            startMainActivity()
         }
     }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,15 +54,19 @@ class LoginActivity : AppCompatActivity() {
                         UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
                     } else if (token != null) {
                         Log.i(TAG, "카카오톡으로 로그인 성공 ${token.accessToken}")
-                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                        intent.flags =
-                            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-                        startActivity(intent)
+                        startMainActivity()
                     }
                 }
             } else {
                 UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
             }
         }
+    }
+
+    private fun startMainActivity() {
+        val intent = Intent(this, MainActivity::class.java)
+        intent.flags =
+            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+        startActivity(intent)
     }
 }
