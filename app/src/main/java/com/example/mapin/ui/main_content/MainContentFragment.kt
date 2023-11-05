@@ -33,7 +33,7 @@ class MainContentFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val mainRecyclerView = binding.mainContentRecyclerView
         Log.d("BBBBBBBBBBBBBBBBb","BBBBBBBBBBBBBBBBBBB")
-        val item = listOf(ContentData("http://placehold.it/200/200","테스트","테스트전","테스트위치"))
+        val item = listOf(ContentData("http://placehold.it/200/200","테스트","테스트전","테스트위치"),ContentData("http://placehold.it/200/200","테스트","테스트전","테스트위치"),ContentData("http://placehold.it/200/200","테스트","테스트전","테스트위치"),ContentData("http://placehold.it/200/200","테스트","테스트전","테스트위치"),ContentData("http://placehold.it/200/200","테스트","테스트전","테스트위치"),ContentData("http://placehold.it/200/200","테스트","테스트전","테스트위치"))
         val mainRecyclerAdapter = MainContentAdapter()
         mainRecyclerView.adapter = mainRecyclerAdapter
         mainRecyclerView.layoutManager = LinearLayoutManager(context)
