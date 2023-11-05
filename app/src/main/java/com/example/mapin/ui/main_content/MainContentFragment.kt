@@ -1,6 +1,7 @@
 package com.example.mapin.ui.main_content
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -23,7 +24,6 @@ class MainContentFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
         return binding.root
 
@@ -32,7 +32,13 @@ class MainContentFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val mainRecyclerView = binding.mainContentRecyclerView
-        mainRecyclerView.adapter = MainContentAdapter()
+        Log.d("BBBBBBBBBBBBBBBBb","BBBBBBBBBBBBBBBBBBB")
+        val item = listOf(ContentData("http://placehold.it/200/200","테스트","테스트전","테스트위치"))
+        val mainRecyclerAdapter = MainContentAdapter()
+        mainRecyclerView.adapter = mainRecyclerAdapter
+        mainRecyclerView.layoutManager = LinearLayoutManager(context)
+        mainRecyclerAdapter.submitList(listOf<ContentData>())
+        mainRecyclerAdapter.submitList(item)
 
     }
 

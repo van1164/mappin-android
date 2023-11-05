@@ -1,5 +1,6 @@
 package com.example.mapin.ui.main_content
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -12,7 +13,9 @@ import com.example.mapin.databinding.ContentMainBinding
 class MainContentAdapter : ListAdapter<ContentData,MainContentAdapter.MyViewHolder>(diffUtil) {
     class MyViewHolder(private val binding: ContentItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
         fun bind(item: ContentData) {
+            Log.d("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",item.toString())
             binding.itemImageView.apply {
                 Glide.with(this.context).load(item.imageUrl).into(this)
             }
@@ -24,6 +27,7 @@ class MainContentAdapter : ListAdapter<ContentData,MainContentAdapter.MyViewHold
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = ContentItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        Log.d("AAAAAAAAAAAAAAAA", "AAAAAAAAAAAAAA")
         return MyViewHolder(view)
     }
 

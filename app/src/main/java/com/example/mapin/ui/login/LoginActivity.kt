@@ -38,7 +38,6 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = ActivityLoginBinding.inflate(layoutInflater)
-        var keyHash = Utility.getKeyHash(this)
         setContentView(binding.root)
         val kakaoLoginButton = binding.kakaoLoginButton
         loginViewModel =
