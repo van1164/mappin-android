@@ -52,4 +52,11 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+
+    <!-- FAB Menu -->
+    <string name="fab_menu1">가게 이름으로 검색</string>
+    <string name="fab_menu2">지역별 검색</string>
+    <string name="fab_menu3">제품별 검색</string>
+    <string name="fab_menu4">게시물 작성</string>
+    <string name="fab_menu5">분실물 등록</string>
 </resources>
