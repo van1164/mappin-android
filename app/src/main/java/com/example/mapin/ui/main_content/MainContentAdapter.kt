@@ -3,18 +3,23 @@ package com.example.mapin.ui.main_content
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.mapin.R
 import com.example.mapin.databinding.ContentItemBinding
 import com.example.mapin.databinding.ContentMainBinding
 
 class MainContentAdapter : ListAdapter<ContentData,MainContentAdapter.MyViewHolder>(diffUtil) {
     class MyViewHolder(private val binding: ContentItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
         fun bind(item: ContentData) {
+            itemView.setOnClickListener{
+                itemView.findNavController().navigate(R.id.action_FirstFragment_to_mainContentDetail)
+            }
             Log.d("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",item.toString())
             binding.itemImageView.apply {
                 Glide.with(this.context).load(item.imageUrl).into(this)

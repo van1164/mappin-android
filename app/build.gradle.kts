@@ -47,9 +47,11 @@ dependencies {
     implementation("com.kakao.sdk:v2-friend:2.17.0") // 카카오톡 소셜 피커, 리소스 번들 파일 포함
     implementation("com.kakao.sdk:v2-navi:2.17.0") // 카카오내비
     implementation("com.kakao.sdk:v2-cert:2.17.0") // 카카오 인증서비스
-
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
     implementation("com.github.bumptech.glide:glide:4.11.0")
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
