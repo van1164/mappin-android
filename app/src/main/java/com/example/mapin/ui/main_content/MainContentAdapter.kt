@@ -21,7 +21,7 @@ class MainContentAdapter : ListAdapter<ContentData,MainContentAdapter.MyViewHold
             }
             binding.contentTitle.text = item.title
             binding.locationText.text = item.location
-            binding.tiemText.text = item.time
+            binding.timeText.text = item.time
         }
     }
 
