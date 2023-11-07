@@ -49,6 +49,8 @@ dependencies {
     implementation("com.kakao.sdk:v2-cert:2.17.0") // 카카오 인증서비스
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
+    implementation ("com.squareup.retrofit2:converter-gson:2.6.2")
+    implementation ("com.squareup.retrofit2:retrofit:2.6.0")
     implementation("com.github.bumptech.glide:glide:4.11.0")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("com.google.android.gms:play-services-maps:18.2.0")
