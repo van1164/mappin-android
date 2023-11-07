@@ -44,6 +44,8 @@ class MainActivity : AppCompatActivity() {
         }
         binding.fab2.setOnClickListener {
             //TODO:지역별 검색
+            navController.navigate(R.id.action_FirstFragment_to_searchLocation)
+            closeFABMenu()
         }
         binding.fab3.setOnClickListener {
             //TODO:제품별 검색
