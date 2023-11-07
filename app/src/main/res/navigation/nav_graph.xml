@@ -14,10 +14,19 @@
         <action
             android:id="@+id/action_FirstFragment_to_mainContentDetail"
             app:destination="@id/mainContentDetail" />
+
+        <action
+            android:id="@+id/action_FirstFragment_to_searchLocation"
+            app:destination="@+id/searchLocatoin"/>
     </fragment>
     <fragment
         android:id="@+id/mainContentDetail"
         android:name="com.example.mapin.ui.main_content_detail.MainContentDetailFragment"
         android:label="fragment_main_content_detail"
         tools:layout="@layout/fragment_main_content_detail" />
+    <fragment
+        android:id="@+id/searchLocatoin"
+        android:name="com.example.mapin.ui.search_location.SearchLocationFragment"
+        android:label="fragment_search_location"
+        tools:layout="@layout/fragment_search_location"/>
 </navigation>

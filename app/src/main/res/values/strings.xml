@@ -59,4 +59,38 @@
     <string name="fab_menu3">제품별 검색</string>
     <string name="fab_menu4">게시물 작성</string>
     <string name="fab_menu5">분실물 등록</string>
+
+    <!-- 지역 -->
+    <string-array name="select_region_si">
+        <item>서울특별시</item>
+        <item>수원시</item>
+    </string-array>
+
+    <string-array name="seoul_gu">
+        <item>강남구</item>
+    </string-array>
+
+    <string-array name="suwon_gu">
+        <item>영통구</item>
+    </string-array>
+
+    <string-array name="gangnam_dong">
+        <item>신사동</item>
+        <item>논현동</item>
+        <item>압구정동</item>
+        <item>청담동</item>
+        <item>삼성동</item>
+        <item>대치동</item>
+        <item>역삼동</item>
+        <item>도곡동</item>
+        <item>개포동</item>
+        <item>세곡동</item>
+        <item>일원본동</item>
+        <item>일원동</item>
+        <item>수서동</item>
+    </string-array>
+
+    <string-array name="suwon_dong">
+        <item>영통동</item>
+    </string-array>
 </resources>

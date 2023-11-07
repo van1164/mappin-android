@@ -37,7 +37,7 @@ class MainContentDetailFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainContentDetailViewModel::class.java)
+        viewModel = ViewModelProvider(this)[MainContentDetailViewModel::class.java]
         (activity as MainActivity).findViewById<FloatingActionButton>(R.id.fab).visibility =View.INVISIBLE
         val mapView = MapView(requireContext())
         mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(37.24793398172821, 127.0764451494671), false)
@@ -56,6 +56,14 @@ class MainContentDetailFragment : Fragment() {
         binding.detailTimeText.text = "3시간전"
         binding.detailImage.setImageResource(R.drawable.sample)
 
+    }
+
+    //FAB이 MainActivity에 있어서 임시로 해놓은 기능.
+    //기존의 경우 MainContentDetailFragment에서 뒤로가면 FAB이 안보이기 때문에
+    override fun onDestroyView() {
+        (activity as MainActivity).findViewById<FloatingActionButton>(R.id.fab).visibility =View.VISIBLE
+        super.onDestroyView()
+        _binding = null
     }
 
 }
