@@ -71,6 +71,7 @@ class LoginActivity : AppCompatActivity() {
                 UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
             } else if (token != null) {
                 UserApiClient.instance.me { user, error ->
+                    Log.d("XXXXXXXXXXX",user!!.properties.toString())
                     if (error != null) {
                         Log.e(TAG, "사용자 정보 요청 실패", error)
                     } else if (user != null) {

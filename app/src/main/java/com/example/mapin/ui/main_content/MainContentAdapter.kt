@@ -20,7 +20,6 @@ class MainContentAdapter : ListAdapter<ContentData,MainContentAdapter.MyViewHold
             itemView.setOnClickListener{
                 itemView.findNavController().navigate(R.id.action_FirstFragment_to_mainContentDetail)
             }
-            Log.d("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",item.toString())
             binding.itemImageView.apply {
                 Glide.with(this.context).load(item.imageUrl).into(this)
             }
@@ -32,7 +31,6 @@ class MainContentAdapter : ListAdapter<ContentData,MainContentAdapter.MyViewHold
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = ContentItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        Log.d("AAAAAAAAAAAAAAAA", "AAAAAAAAAAAAAA")
         return MyViewHolder(view)
     }
 
