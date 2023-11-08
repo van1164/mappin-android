@@ -1,5 +1,7 @@
 package com.example.mapin.ui.main_content_detail
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -56,6 +58,9 @@ class MainContentDetailFragment : Fragment() {
         binding.detailTimeText.text = "3시간전"
         binding.detailImage.setImageResource(R.drawable.sample)
 
+        binding.detailContactBtn.setOnClickListener{
+            startActivity(Intent("android.intent.action.DIAL", Uri.parse("tel:01029321164")))
+        }
     }
 
     //FAB이 MainActivity에 있어서 임시로 해놓은 기능.
