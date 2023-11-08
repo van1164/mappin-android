@@ -45,11 +45,31 @@
         android:id="@+id/searchCategory"
         android:name="com.example.mapin.ui.search_category.SearchCategoryFragment"
         android:label="fragment_search_category"
-        tools:layout="@layout/fragment_search_category"/>
+        tools:layout="@layout/fragment_search_category">
+
+        <action
+            android:id="@+id/action_searchFragment_to_resultCategory"
+            app:destination="@id/resultCategory"
+            app:popUpTo="@id/FirstFragment"/>
+
+    </fragment>
 
     <fragment
         android:id="@+id/searchShop"
         android:name="com.example.mapin.ui.search_shop.SearchShopFragment"
         android:label="fragment_search_shop"
         tools:layout="@layout/fragment_search_shop"/>
+
+    <!--Result-->
+    <fragment
+        android:id="@+id/resultCategory"
+        android:name="com.example.mapin.ui.search_category.ResultCategoryFragment"
+        android:label="fragment_result_category"
+        tools:layout="@layout/fragment_result_category">
+
+        <action
+            android:id="@+id/action_resultFragment_to_searchCategory"
+            app:destination="@id/searchCategory"/>
+
+    </fragment>
 </navigation>

@@ -5,8 +5,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import com.example.mapin.DataStoreApplication
 import com.example.mapin.MainActivity
 import com.example.mapin.R
@@ -29,8 +31,6 @@ class SearchCategoryFragment : Fragment() {
 
     private val binding get() = _binding!!
     private val viewModel: SearchCategoryViewModel by viewModels()
-    val searchCategoryService by lazy { SearchCategoryService.create() }
-
     lateinit var token:String
 
     override fun onCreateView(
@@ -44,8 +44,6 @@ class SearchCategoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        (activity as MainActivity).findViewById<FloatingActionButton>(R.id.fab).visibility =View.INVISIBLE
 
         var category:String? = null
         binding.searchCategoryBtn.isClickable = false
@@ -98,27 +96,8 @@ class SearchCategoryFragment : Fragment() {
         }
 
         binding.searchCategoryBtn.setOnClickListener {
-
-            category?.let { it1 ->
-                searchCategoryService.search(category = it1, authorization = "Bearer ${token}")
-                    .enqueue(object : Callback<SearchCategoryResponse> {
-                        //서버 요청 성공
-                        override fun onResponse(
-                            call: Call<SearchCategoryResponse>,
-                            response: Response<SearchCategoryResponse>
-                        ) {
-                            if(response.body()!=null){
-                                Log.d("SearchCategoryService",response.body().toString())
-                            }
-
-                        }
-
-                        override fun onFailure(call: Call<SearchCategoryResponse>, t: Throwable) {
-                            Log.e("SearchCategoryService", "onFailure: error. cause: ${t.message}")
-
-                        }
-                    })
-            }
+            val bundle = bundleOf("category" to category)
+            it.findNavController().navigate(R.id.action_searchFragment_to_resultCategory, bundle)
         }
 
     }
@@ -131,7 +110,6 @@ class SearchCategoryFragment : Fragment() {
 
 
     override fun onDestroyView() {
-        (activity as MainActivity).findViewById<FloatingActionButton>(R.id.fab).visibility =View.VISIBLE
         super.onDestroyView()
         _binding = null
     }
