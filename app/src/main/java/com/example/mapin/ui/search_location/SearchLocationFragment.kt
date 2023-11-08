@@ -8,10 +8,20 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.example.mapin.DataStoreApplication
 import com.example.mapin.MainActivity
 import com.example.mapin.R
 import com.example.mapin.databinding.FragmentSearchLocationBinding
+import com.example.mapin.network.model.SearchLocationResponse
+import com.example.mapin.network.service.SearchLocationService
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class SearchLocationFragment : Fragment() {
 
@@ -20,6 +30,9 @@ class SearchLocationFragment : Fragment() {
 
     private val binding get() = _binding!!
     private val viewModel: SearchLocationViewModel by viewModels()
+    val searchLocationService by lazy { SearchLocationService.create() }
+
+    lateinit var token:String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,7 +47,6 @@ class SearchLocationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         (activity as MainActivity).findViewById<FloatingActionButton>(R.id.fab).visibility =View.INVISIBLE
-
 
         //지역 선택 임시
         var regionArray = resources.getStringArray(R.array.select_region_si)
@@ -101,10 +113,36 @@ class SearchLocationFragment : Fragment() {
             initializeRegion()
         }
 
-        binding.searchLocationBtn.setOnClickListener {
-            //TODO: POST
-            Log.d("SEARCHLOATION",dong.toString())
+        //임시 DataStore에서 토큰 가져오는 로직
+        CoroutineScope(Dispatchers.Main).launch {
+            token = DataStoreApplication.getInstance().getDataStore().token.first()
         }
+
+        binding.searchLocationBtn.setOnClickListener {
+
+            dong?.let { it ->
+                searchLocationService.search(dong_name = it, authorization = "Bearer ${token}")
+                    .enqueue(object : Callback<List<SearchLocationResponse>> {
+                        //서버 요청 성공
+                        override fun onResponse(
+                            call: Call<List<SearchLocationResponse>>,
+                            response: Response<List<SearchLocationResponse>>
+                        ) {
+                            if(response.body()!=null){
+                                Log.d("SearchLocationService",response.body().toString())
+                            }
+
+                        }
+
+                        override fun onFailure(call: Call<List<SearchLocationResponse>>, t: Throwable) {
+                            Log.e("SearchLocationService", "onFailure: error. cause: ${t.message}")
+
+                        }
+                    })
+            }
+        }
+
+
 
     }
 

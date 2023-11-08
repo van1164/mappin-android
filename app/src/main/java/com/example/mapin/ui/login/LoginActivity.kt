@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.example.mapin.DataStoreApplication
 import com.example.mapin.MainActivity
 import com.example.mapin.databinding.ActivityLoginBinding
 import com.example.mapin.network.model.LoginResponse
@@ -16,6 +17,9 @@ import com.kakao.sdk.common.KakaoSdk
 import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
 import com.kakao.sdk.user.model.User
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -28,7 +32,14 @@ class LoginActivity : AppCompatActivity() {
         if (error != null) {
             Log.e(TAG, "카카오계정으로 로그인 실패", error)
         } else if (token != null) {
-            Log.i(TAG, "카카오계정으로 로그인 성공 ${token.accessToken}")
+            UserApiClient.instance.me { user, error ->
+                if (error != null) {
+                    Log.e(TAG, "사용자 정보 요청 실패", error)
+                } else if (user != null) {
+                    lginToServer(user)
+                }
+            }
+            Log.i(TAG, "카카오톡으로 로그인 성공 ${token.accessToken}")
             startMainActivity()
         }
     }
@@ -82,6 +93,14 @@ class LoginActivity : AppCompatActivity() {
                     response: Response<LoginResponse>
                 ) {
                     Log.d("BBBBBBBBBBBBBBBBBBBBBBBB", response.body().toString())
+
+                    //DataStore에 jwt 저장
+                    //임시처리
+                    CoroutineScope(Dispatchers.Main).launch {
+                        response.body()
+                            ?.let { DataStoreApplication.getInstance().getDataStore().setToken(it.jwt) }
+                    }
+
                 }
 
                 override fun onFailure(
