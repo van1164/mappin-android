@@ -41,6 +41,8 @@ class MainActivity : AppCompatActivity() {
 
         binding.fab1.setOnClickListener {
             //TODO:가게 이름으로 검색
+            navController.navigate(R.id.action_FirstFragment_to_searchShop)
+            closeFABMenu()
         }
         binding.fab2.setOnClickListener {
             //TODO:지역별 검색
@@ -49,6 +51,8 @@ class MainActivity : AppCompatActivity() {
         }
         binding.fab3.setOnClickListener {
             //TODO:제품별 검색
+            navController.navigate(R.id.action_FirstFragment_to_searchCategory)
+            closeFABMenu()
         }
         binding.fab4.setOnClickListener {
             //TODO:게시물 작성

@@ -17,16 +17,39 @@
 
         <action
             android:id="@+id/action_FirstFragment_to_searchLocation"
-            app:destination="@+id/searchLocatoin"/>
+            app:destination="@+id/searchLocation"/>
+
+        <action
+            android:id="@+id/action_FirstFragment_to_searchCategory"
+            app:destination="@+id/searchCategory"/>
+
+        <action
+            android:id="@+id/action_FirstFragment_to_searchShop"
+            app:destination="@+id/searchShop"/>
     </fragment>
+
     <fragment
         android:id="@+id/mainContentDetail"
         android:name="com.example.mapin.ui.main_content_detail.MainContentDetailFragment"
         android:label="fragment_main_content_detail"
         tools:layout="@layout/fragment_main_content_detail" />
+
+    <!--Search-->
     <fragment
-        android:id="@+id/searchLocatoin"
+        android:id="@+id/searchLocation"
         android:name="com.example.mapin.ui.search_location.SearchLocationFragment"
         android:label="fragment_search_location"
         tools:layout="@layout/fragment_search_location"/>
+
+    <fragment
+        android:id="@+id/searchCategory"
+        android:name="com.example.mapin.ui.search_category.SearchCategoryFragment"
+        android:label="fragment_search_category"
+        tools:layout="@layout/fragment_search_category"/>
+
+    <fragment
+        android:id="@+id/searchShop"
+        android:name="com.example.mapin.ui.search_shop.SearchShopFragment"
+        android:label="fragment_search_shop"
+        tools:layout="@layout/fragment_search_shop"/>
 </navigation>
