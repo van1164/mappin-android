@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import com.example.mapin.DataStoreApplication
 import com.example.mapin.MainActivity
 import com.example.mapin.R
@@ -47,6 +48,7 @@ class SearchLocationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         (activity as MainActivity).findViewById<FloatingActionButton>(R.id.fab).visibility =View.INVISIBLE
+        binding.searchLocationBtn.isClickable = false
 
         //지역 선택 임시
         var regionArray = resources.getStringArray(R.array.select_region_si)
@@ -104,6 +106,7 @@ class SearchLocationFragment : Fragment() {
             //최종적으로 POST 넘겨줄건 dong 변수
             dong = parent.getItemAtPosition(position).toString()
             binding.selectRegion.visibility = View.VISIBLE
+            binding.searchLocationBtn.isClickable = true
             binding.selectTv.text = "$si $gu $dong"
         }
 
@@ -122,11 +125,11 @@ class SearchLocationFragment : Fragment() {
 
             dong?.let { it ->
                 searchLocationService.search(dong_name = it, authorization = "Bearer ${token}")
-                    .enqueue(object : Callback<List<SearchLocationResponse>> {
+                    .enqueue(object : Callback<SearchLocationResponse> {
                         //서버 요청 성공
                         override fun onResponse(
-                            call: Call<List<SearchLocationResponse>>,
-                            response: Response<List<SearchLocationResponse>>
+                            call: Call<SearchLocationResponse>,
+                            response: Response<SearchLocationResponse>
                         ) {
                             if(response.body()!=null){
                                 Log.d("SearchLocationService",response.body().toString())
@@ -134,13 +137,14 @@ class SearchLocationFragment : Fragment() {
 
                         }
 
-                        override fun onFailure(call: Call<List<SearchLocationResponse>>, t: Throwable) {
+                        override fun onFailure(call: Call<SearchLocationResponse>, t: Throwable) {
                             Log.e("SearchLocationService", "onFailure: error. cause: ${t.message}")
 
                         }
                     })
             }
         }
+
 
 
 
@@ -152,6 +156,7 @@ class SearchLocationFragment : Fragment() {
         binding.autoCompleteTextView3.text = null
 
         binding.selectRegion.visibility = View.INVISIBLE
+        binding.searchLocationBtn.isClickable = false
     }
 
     override fun onDestroyView() {

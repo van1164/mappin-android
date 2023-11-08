@@ -49,7 +49,8 @@
             app:tint="@android:color/white"
             app:fabCustomSize="35dp"
             app:shapeAppearance="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
-            android:backgroundTint="@color/navy" />
+            android:backgroundTint="@color/navy"
+            app:borderWidth="0dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -78,7 +79,8 @@
             app:tint="@android:color/white"
             app:fabCustomSize="35dp"
             app:shapeAppearance="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
-            android:backgroundTint="@color/navy"/>
+            android:backgroundTint="@color/navy"
+            app:borderWidth="0dp"/>
     </LinearLayout>
 
 
@@ -109,7 +111,8 @@
             app:tint="@android:color/white"
             app:fabCustomSize="35dp"
             app:shapeAppearance="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
-            android:backgroundTint="@color/navy" />
+            android:backgroundTint="@color/navy"
+            app:borderWidth="0dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -139,7 +142,8 @@
             app:tint="@android:color/white"
             app:fabCustomSize="35dp"
             app:shapeAppearance="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
-            android:backgroundTint="@color/navy" />
+            android:backgroundTint="@color/navy"
+            app:borderWidth="0dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -169,7 +173,8 @@
             app:tint="@android:color/white"
             app:fabCustomSize="35dp"
             app:shapeAppearance="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
-            android:backgroundTint="@color/navy" />
+            android:backgroundTint="@color/navy"
+            app:borderWidth="0dp"/>
     </LinearLayout>
 
 
@@ -191,7 +196,8 @@
             app:tint="@android:color/white"
             app:fabSize="normal"
             app:shapeAppearance="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
-            android:backgroundTint="@color/navy" />
+            android:backgroundTint="@color/navy"
+            app:borderWidth="0dp"/>
     </LinearLayout>
 
 
