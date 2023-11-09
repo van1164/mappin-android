@@ -47,7 +47,6 @@ class SearchLocationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (activity as MainActivity).findViewById<FloatingActionButton>(R.id.fab).visibility =View.INVISIBLE
         binding.searchLocationBtn.isClickable = false
 
         //지역 선택 임시
@@ -160,7 +159,6 @@ class SearchLocationFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        (activity as MainActivity).findViewById<FloatingActionButton>(R.id.fab).visibility =View.VISIBLE
         super.onDestroyView()
         _binding = null
     }

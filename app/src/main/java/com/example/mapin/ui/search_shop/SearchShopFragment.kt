@@ -46,7 +46,7 @@ class SearchShopFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (activity as MainActivity).findViewById<FloatingActionButton>(R.id.fab).visibility =View.INVISIBLE
+
         var nameShop:String? = null
 
         //임시 DataStore에서 토큰 가져오는 로직
@@ -93,7 +93,6 @@ class SearchShopFragment : Fragment() {
 
 
     override fun onDestroyView() {
-        (activity as MainActivity).findViewById<FloatingActionButton>(R.id.fab).visibility =View.VISIBLE
         super.onDestroyView()
         _binding = null
     }

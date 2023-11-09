@@ -23,7 +23,7 @@ data class SearchCategoryResponse(
 
 data class CategoryItem(
     val id: Int,
-    val title: Int,
+    val title: String,
     val createdAt: String,
     val imageUrl: String,
 )
@@ -37,7 +37,7 @@ data class SearchShopResponse(
 
 data class ShopItem(
     val id: Int,
-    val title: Int,
+    val title: String,
     val createdAt: String,
     val imageUrl: String,
     val shopName: String,
