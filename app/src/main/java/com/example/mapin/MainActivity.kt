@@ -12,6 +12,7 @@ import android.view.MenuItem
 import android.view.View
 import com.example.mapin.databinding.ActivityMainBinding
 import android.animation.Animator
+import android.view.WindowManager
 import com.example.mapin.ui.main_content.MainContentFragment
 
 class MainActivity : AppCompatActivity() {
@@ -27,7 +28,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         //val navController = findNavController(R.id.nav_host_fragment_content_main)
-
 
     }
 

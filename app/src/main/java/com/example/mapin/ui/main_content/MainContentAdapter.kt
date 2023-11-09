@@ -18,7 +18,7 @@ class MainContentAdapter : ListAdapter<ContentData,MainContentAdapter.MyViewHold
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ContentData) {
             itemView.setOnClickListener{
-                itemView.findNavController().navigate(R.id.action_FirstFragment_to_mainContentDetail)
+                itemView.findNavController().navigate(R.id.action_to_mainContentDetail)
             }
             binding.itemImageView.apply {
                 Glide.with(this.context).load(item.imageUrl).into(this)

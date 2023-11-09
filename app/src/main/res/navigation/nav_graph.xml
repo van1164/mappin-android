@@ -39,7 +39,14 @@
         android:id="@+id/searchLocation"
         android:name="com.example.mapin.ui.search_location.SearchLocationFragment"
         android:label="fragment_search_location"
-        tools:layout="@layout/fragment_search_location"/>
+        tools:layout="@layout/fragment_search_location">
+
+        <action
+            android:id="@+id/action_searchFragment_to_resultLocation"
+            app:destination="@id/resultLocation"
+            app:popUpTo="@id/FirstFragment"/>
+
+    </fragment>
 
     <fragment
         android:id="@+id/searchCategory"
@@ -72,4 +79,20 @@
             app:destination="@id/searchCategory"/>
 
     </fragment>
+
+    <fragment
+        android:id="@+id/resultLocation"
+        android:name="com.example.mapin.ui.search_location.ResultLocationFragment"
+        android:label="fragment_result_location"
+        tools:layout="@layout/fragment_result_location">
+
+        <action
+            android:id="@+id/action_resultFragment_to_searchLocation"
+            app:destination="@id/searchLocation"/>
+    </fragment>
+
+    <action
+        android:id="@+id/action_to_mainContentDetail"
+        app:destination="@id/mainContentDetail" />
+
 </navigation>

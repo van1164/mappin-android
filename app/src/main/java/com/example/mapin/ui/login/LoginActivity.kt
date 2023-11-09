@@ -4,6 +4,7 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.mapin.DataStoreApplication
@@ -61,6 +62,9 @@ class LoginActivity : AppCompatActivity() {
                 UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
             }
         }
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
     }
 
     private fun loginWithKakaoApp() {

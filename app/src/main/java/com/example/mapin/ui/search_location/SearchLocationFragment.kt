@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
@@ -32,8 +33,6 @@ class SearchLocationFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: SearchLocationViewModel by viewModels()
     val searchLocationService by lazy { SearchLocationService.create() }
-
-    lateinit var token:String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -115,33 +114,10 @@ class SearchLocationFragment : Fragment() {
             initializeRegion()
         }
 
-        //임시 DataStore에서 토큰 가져오는 로직
-        CoroutineScope(Dispatchers.Main).launch {
-            token = DataStoreApplication.getInstance().getDataStore().token.first()
-        }
-
         binding.searchLocationBtn.setOnClickListener {
 
-            dong?.let { it ->
-                searchLocationService.search(dong_name = it, authorization = "Bearer ${token}")
-                    .enqueue(object : Callback<SearchLocationResponse> {
-                        //서버 요청 성공
-                        override fun onResponse(
-                            call: Call<SearchLocationResponse>,
-                            response: Response<SearchLocationResponse>
-                        ) {
-                            if(response.body()!=null){
-                                Log.d("SearchLocationService",response.body().toString())
-                            }
-
-                        }
-
-                        override fun onFailure(call: Call<SearchLocationResponse>, t: Throwable) {
-                            Log.e("SearchLocationService", "onFailure: error. cause: ${t.message}")
-
-                        }
-                    })
-            }
+            val bundle = bundleOf("dong" to dong)
+            it.findNavController().navigate(R.id.action_searchFragment_to_resultLocation, bundle)
         }
 
 
