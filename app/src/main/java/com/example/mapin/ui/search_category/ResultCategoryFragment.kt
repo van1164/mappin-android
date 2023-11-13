@@ -82,7 +82,12 @@ class ResultCategoryFragment : Fragment() {
                                     Log.d("ResultCategoryService",response.body().toString())
                                     binding.resultTv.text="${category} 카테고리에 대해,\n${response.body()!!.losts.size}개의 결과를 찾았습니다."
                                     for(i:Int in 0 until response.body()!!.losts.size){
-                                        item.add(ContentData(imageUrl = response.body()!!.losts[i].imageUrl, title = response.body()!!.losts[i].title,"time?","locatoin?"))
+                                        item.add(ContentData(
+                                            id = response.body()!!.losts[i].id,
+                                            imageUrl = response.body()!!.losts[i].imageUrl,
+                                            title = response.body()!!.losts[i].title,
+                                            time = "time?",
+                                            location = "locatoin?"))
                                         resultRecyclerAdapter.submitList(item)
                                     }
                                 }
