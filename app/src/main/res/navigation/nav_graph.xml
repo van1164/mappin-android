@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_FirstFragment_to_searchShop"
             app:destination="@+id/searchShop"/>
+        <action
+            android:id="@+id/action_FirstFragment_to_createContentFragment"
+            app:destination="@id/createContentFragment" />
     </fragment>
 
     <fragment
@@ -94,5 +97,9 @@
     <action
         android:id="@+id/action_to_mainContentDetail"
         app:destination="@id/mainContentDetail" />
+    <fragment
+        android:id="@+id/createContentFragment"
+        android:name="com.example.mapin.ui.create_content.CreateContentFragment"
+        android:label="CreateContentFragment" />
 
 </navigation>

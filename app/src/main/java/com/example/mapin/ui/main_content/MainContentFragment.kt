@@ -78,6 +78,7 @@ class MainContentFragment : Fragment() {
             //TODO:게시물 작성
         }
         binding.fab5.setOnClickListener {
+            findNavController().navigate(R.id.action_FirstFragment_to_createContentFragment)
             //TODO:분실물 등록
         }
 
