@@ -4,20 +4,32 @@ import android.graphics.Bitmap
 import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.provider.MediaStore
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
-import com.example.mapin.R
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.example.mapin.DataStoreApplication
 import com.example.mapin.databinding.FragmentCreateContentBinding
-import com.example.mapin.databinding.FragmentFirstBinding
-import com.example.mapin.databinding.FragmentMainContentDetailBinding
+import com.example.mapin.network.model.Info
+import com.example.mapin.network.service.BitmapRequestBody
+import com.example.mapin.network.service.CreateService
+import com.google.gson.Gson
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
+import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 class CreateContentFragment : Fragment() {
 
@@ -27,17 +39,20 @@ class CreateContentFragment : Fragment() {
 
     private lateinit var viewModel: CreateContentViewModel
     private var _binding: FragmentCreateContentBinding? = null
-
+    lateinit var token: String
+    var image: Bitmap? = null
     val getContent = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-        uri?.let{
-            var bitmap : Bitmap
+        uri?.let {
+            var bitmap: Bitmap
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                val source =ImageDecoder.createSource(getContentResolver(), uri)
+                val source = ImageDecoder.createSource(requireActivity().getContentResolver(), uri)
                 bitmap = ImageDecoder.decodeBitmap(source)
             } else {
-                bitmap= MediaStore.Images.Media.getBitmap(this.contentResolver, uri)
+                bitmap =
+                    MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), uri)
             }
-            rectangleView.drawImage(bitmap)
+            binding.imageSelect.setImageBitmap(bitmap)
+            image = bitmap
         }
 
     }
@@ -46,6 +61,11 @@ class CreateContentFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        CoroutineScope(Dispatchers.Default).launch {
+            launch {
+                token = DataStoreApplication.getInstance().getDataStore().token.first()
+            }
+        }
         _binding = FragmentCreateContentBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -54,10 +74,39 @@ class CreateContentFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(CreateContentViewModel::class.java)
         val mapView = MapView(requireContext())
-        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(37.24793398172821, 127.0764451494671), false)
+        mapView.setMapCenterPoint(
+            MapPoint.mapPointWithGeoCoord(
+                37.24793398172821,
+                127.0764451494671
+            ), false
+        )
         binding.createMapView.addView(mapView)
+        binding.createButton.setOnClickListener {
+            Log.d("XXXXXXXXXXXXXXXX", image.toString())
+            GlobalScope.launch {
+                val info = Info(
+                    "의류",
+                    binding.editTextText2.text.toString(),
+                    "sd",
+                    "sdf",
+                    binding.editTextText.text.toString(),
+                    37.24793398172821,
+                    127.0764451494671
+                )
+                val json = Gson().toJson(info)
+                image?.let { it1 ->
+                    CreateService.create().create(
+                        authorization = "Bearer ${token}",
+                        MultipartBody.Part.createFormData("sdf","sdf",BitmapRequestBody(it1)),
+                        RequestBody.create("application/json".toMediaTypeOrNull(),json)
+                    ).execute()
+                }
+            }
+        }
 
-
+        binding.imageSelect.setOnClickListener {
+            getContent.launch("image/*")
+        }
         // TODO: Use the ViewModel
     }
 
