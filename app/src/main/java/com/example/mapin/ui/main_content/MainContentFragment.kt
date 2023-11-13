@@ -95,7 +95,7 @@ class MainContentFragment : Fragment() {
                     call: Call<MainListResponse>,
                     response: Response<MainListResponse>
                 ) {
-                    Log.d("BBBBBBBBBBBBBBBBBBBBBBBB", response.body().toString())
+                    Log.d("SearchMainListInterface", response.body().toString())
                     val itemList = convertMainListToContentData(response.body())
                     mainRecyclerAdapter.submitList(itemList)
 
@@ -108,7 +108,14 @@ class MainContentFragment : Fragment() {
     }
     private fun convertMainListToContentData(mainListResponse: MainListResponse?): List<ContentData> {
         return mainListResponse?.losts?.map{ mainListItem->
-            ContentData(mainListItem.imageUrl,mainListItem.title,mainListItem.createdAt,"null")
+            ContentData(
+                imageUrl = mainListItem.imageUrl,
+                title = mainListItem.title,
+                time = mainListItem.createdAt,
+                id = mainListItem.id,
+                location = "null"
+                //location = mainListItem.dong -->현재 null 오류 뜸.
+            )
         }
             ?: listOf<ContentData>()
     }

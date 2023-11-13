@@ -3,18 +3,30 @@ package com.example.mapin.ui.main_content_detail
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.mapin.MainActivity
+import com.bumptech.glide.Glide
+import com.example.mapin.DataStoreApplication
 import com.example.mapin.R
 import com.example.mapin.databinding.FragmentMainContentDetailBinding
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.example.mapin.network.model.DetailResponse
+import com.example.mapin.network.model.SearchCategoryResponse
+import com.example.mapin.network.service.DetailService
+import com.example.mapin.ui.main_content.ContentData
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class MainContentDetailFragment : Fragment() {
@@ -25,6 +37,9 @@ class MainContentDetailFragment : Fragment() {
 
     private lateinit var viewModel: MainContentDetailViewModel
     private var _binding: FragmentMainContentDetailBinding? = null
+
+    val detailService by lazy { DetailService.create() }
+    lateinit var token:String
 
 
     private val binding get() = _binding!!
@@ -40,22 +55,60 @@ class MainContentDetailFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this)[MainContentDetailViewModel::class.java]
+
+        val id = requireArguments().getString("id")
+        Log.e("MainContentDetailFragment",id.toString())
+
         val mapView = MapView(requireContext())
-        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(37.24793398172821, 127.0764451494671), false)
-
         val marker = MapPOIItem()
-        marker.itemName = "카페 칸나"
-        marker.tag = 0
-        marker.mapPoint = MapPoint.mapPointWithGeoCoord(37.24793398172821, 127.0764451494671)
-        marker.markerType = MapPOIItem.MarkerType.BluePin
 
-        mapView.addPOIItem(marker)
-        binding.mapView.addView(mapView)
+        //임시 DataStore에서 토큰 가져오는 로직
+        CoroutineScope(Dispatchers.Default).launch {
+            launch {
+                token = DataStoreApplication.getInstance().getDataStore().token.first()
+            }.join()
 
-        binding.detailContentText.text ="이름이 박선우라고 써있는데, 버리려다 참았네요\n동해물과\n백두산이\n마르고\n닳도록"
-        binding.DetailTitleText.text = "뭔지 모르는 갤럭시 핸드폰 발견했어요"
-        binding.detailTimeText.text = "3시간전"
-        binding.detailImage.setImageResource(R.drawable.sample)
+            launch {
+                id?.let { it ->
+                    detailService.search(id = it, authorization = "Bearer ${token}")
+                        .enqueue(object : Callback<DetailResponse> {
+                            //서버 요청 성공
+                            override fun onResponse(
+                                call: Call<DetailResponse>,
+                                response: Response<DetailResponse>
+                            ) {
+                                if(response.body()!=null){
+                                    Log.d("MainContentDetailFragment",response.body().toString())
+                                    mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(response.body()!!.y, response.body()!!.x), false)
+                                    marker.itemName = response.body()!!.dong
+                                    marker.tag = 0
+                                    marker.mapPoint = MapPoint.mapPointWithGeoCoord(response.body()!!.y, response.body()!!.x)
+                                    marker.markerType = MapPOIItem.MarkerType.BluePin
+
+                                    mapView.addPOIItem(marker)
+                                    binding.mapView.addView(mapView)
+
+                                    binding.detailContentText.text = response.body()!!.content
+                                    binding.DetailTitleText.text = response.body()!!.title
+                                    binding.detailTimeText.text = response.body()!!.createdAt
+                                    Glide.with(this@MainContentDetailFragment)
+                                        .load(response.body()!!.image)
+                                        .into(binding.detailImage)
+
+                                }
+
+                            }
+
+                            override fun onFailure(call: Call<DetailResponse>, t: Throwable) {
+
+                                Log.e("MainContentDetailFragment", "onFailure: error. cause: ${t.message}")
+
+                            }
+                        })
+                }
+            }
+
+        }
 
         binding.detailContactBtn.setOnClickListener{
             startActivity(Intent("android.intent.action.DIAL", Uri.parse("tel:01029321164")))

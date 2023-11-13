@@ -50,13 +50,13 @@ class SearchShopFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        var nameShop:String? = null
+        var item:ArrayList<ContentData> = ArrayList()
+
         val resultRecyclerView = binding.resultShopRecyclerView
         val resultRecyclerAdapter = MainContentAdapter()
         resultRecyclerView.adapter = resultRecyclerAdapter
         resultRecyclerView.layoutManager = LinearLayoutManager(context)
-
-        var nameShop:String? = null
-        var item:ArrayList<ContentData> = ArrayList()
 
 
         binding.searchShop.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
@@ -95,7 +95,12 @@ class SearchShopFragment : Fragment() {
                                         if(response.body()!!.losts.isNotEmpty()){
                                             binding.resultTv.text = "${nameShop} 에 대해,\n${response.body()!!.losts.size}개의 결과를 찾았습니다."
                                             for(i:Int in 0 until response.body()!!.losts.size){
-                                                item.add(ContentData(imageUrl = response.body()!!.losts[i].imageUrl, title = response.body()!!.losts[i].title,"time?","locatoin?"))
+                                                item.add(ContentData(
+                                                    id = response.body()!!.losts[i].id,
+                                                    imageUrl = response.body()!!.losts[i].imageUrl,
+                                                    title = response.body()!!.losts[i].title,
+                                                    time = "time?",
+                                                    location = "locatoin?"))
                                                 resultRecyclerAdapter.submitList(item)
                                             }
                                         }
