@@ -1,4 +1,4 @@
-package com.example.mapin.ui.search_category
+package com.example.mapin.ui.search_location
 
 import android.os.Bundle
 import android.util.Log
@@ -10,32 +10,30 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mapin.DataStoreApplication
-import com.example.mapin.MainActivity
 import com.example.mapin.R
-import com.example.mapin.databinding.FragmentResultCategoryBinding
-import com.example.mapin.databinding.FragmentSearchCategoryBinding
+import com.example.mapin.databinding.FragmentResultLocationBinding
 import com.example.mapin.network.model.SearchCategoryResponse
+import com.example.mapin.network.model.SearchLocationResponse
 import com.example.mapin.network.service.SearchCategoryService
+import com.example.mapin.network.service.SearchLocationService
 import com.example.mapin.ui.main_content.ContentData
 import com.example.mapin.ui.main_content.MainContentAdapter
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ResultCategoryFragment : Fragment() {
+class ResultLocationFragment : Fragment() {
 
-    private var _binding: FragmentResultCategoryBinding? = null
+    private var _binding: FragmentResultLocationBinding? = null
 
 
     private val binding get() = _binding!!
-    private val viewModel: SearchCategoryViewModel by viewModels()
-    val searchCategoryService by lazy { SearchCategoryService.create() }
+    private val viewModel: SearchLocationViewModel by viewModels()
+    val searchLocationService by lazy { SearchLocationService.create() }
 
     lateinit var token:String
 
@@ -46,7 +44,7 @@ class ResultCategoryFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentResultCategoryBinding.inflate(inflater, container, false)
+        _binding = FragmentResultLocationBinding.inflate(inflater, container, false)
         return binding.root
 
     }
@@ -55,13 +53,15 @@ class ResultCategoryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        val resultRecyclerView = binding.resultCategoryRecyclerView
+        val resultRecyclerView = binding.resultLocationRecyclerView
         val resultRecyclerAdapter = MainContentAdapter()
         resultRecyclerView.adapter = resultRecyclerAdapter
         resultRecyclerView.layoutManager = LinearLayoutManager(context)
 
-        val category = requireArguments().getString("category")
+        val dong = requireArguments().getString("dong")
+
         var item:ArrayList<ContentData> = ArrayList()
+
 
         //임시 DataStore에서 토큰 가져오는 로직
         CoroutineScope(Dispatchers.Default).launch {
@@ -70,17 +70,17 @@ class ResultCategoryFragment : Fragment() {
             }.join()
 
             launch {
-                category?.let { it ->
-                    searchCategoryService.search(category = it, authorization = "Bearer ${token}")
-                        .enqueue(object : Callback<SearchCategoryResponse> {
+                dong?.let { it ->
+                    searchLocationService.search(dong_name = it, authorization = "Bearer ${token}")
+                        .enqueue(object : Callback<SearchLocationResponse> {
                             //서버 요청 성공
                             override fun onResponse(
-                                call: Call<SearchCategoryResponse>,
-                                response: Response<SearchCategoryResponse>
+                                call: Call<SearchLocationResponse>,
+                                response: Response<SearchLocationResponse>
                             ) {
                                 if(response.body()!=null){
-                                    Log.d("ResultCategoryService",response.body().toString())
-                                    binding.resultTv.text="${category} 카테고리에 대해,\n${response.body()!!.losts.size}개의 결과를 찾았습니다."
+                                    Log.d("ResultLocationService",response.body().toString())
+                                    binding.resultTv.text="${dong} 에 대해,\n${response.body()!!.losts.size}개의 결과를 찾았습니다."
                                     for(i:Int in 0 until response.body()!!.losts.size){
                                         item.add(ContentData(imageUrl = response.body()!!.losts[i].imageUrl, title = response.body()!!.losts[i].title,"time?","locatoin?"))
                                         resultRecyclerAdapter.submitList(item)
@@ -89,9 +89,8 @@ class ResultCategoryFragment : Fragment() {
 
                             }
 
-                            override fun onFailure(call: Call<SearchCategoryResponse>, t: Throwable) {
-
-                                Log.e("ResultCategoryService", "onFailure: error. cause: ${t.message}")
+                            override fun onFailure(call: Call<SearchLocationResponse>, t: Throwable) {
+                                Log.e("ResultLocationService", "onFailure: error. cause: ${t.message}")
 
                             }
                         })
@@ -100,10 +99,8 @@ class ResultCategoryFragment : Fragment() {
 
         }
 
-
-
         binding.searchCategoryBtn.setOnClickListener {
-            it.findNavController().navigate(R.id.action_resultFragment_to_searchCategory)
+            it.findNavController().navigate(R.id.action_resultFragment_to_searchLocation)
         }
 
 

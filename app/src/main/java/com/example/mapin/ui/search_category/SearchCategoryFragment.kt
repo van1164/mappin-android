@@ -31,7 +31,7 @@ class SearchCategoryFragment : Fragment() {
 
     private val binding get() = _binding!!
     private val viewModel: SearchCategoryViewModel by viewModels()
-    lateinit var token:String
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -90,10 +90,6 @@ class SearchCategoryFragment : Fragment() {
             initializeCategory()
         }
 
-        //임시 DataStore에서 토큰 가져오는 로직
-        CoroutineScope(Dispatchers.Main).launch {
-            token = DataStoreApplication.getInstance().getDataStore().token.first()
-        }
 
         binding.searchCategoryBtn.setOnClickListener {
             val bundle = bundleOf("category" to category)

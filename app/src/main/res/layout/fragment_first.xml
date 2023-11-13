@@ -58,10 +58,10 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             app:srcCompat="@drawable/baseline_storefront_24"
-            app:tint="@android:color/white"
+            app:tint="@color/navy"
             app:fabCustomSize="35dp"
             app:shapeAppearance="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
-            android:backgroundTint="@color/navy"
+            android:backgroundTint="@color/white"
             app:borderWidth="0dp"/>
     </LinearLayout>
 
@@ -88,10 +88,10 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             app:srcCompat="@drawable/baseline_location_on_24"
-            app:tint="@android:color/white"
+            app:tint="@color/navy"
             app:fabCustomSize="35dp"
             app:shapeAppearance="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
-            android:backgroundTint="@color/navy"
+            android:backgroundTint="@color/white"
             app:borderWidth="0dp"/>
     </LinearLayout>
 
@@ -120,10 +120,10 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             app:srcCompat="@drawable/baseline_category_24"
-            app:tint="@android:color/white"
+            app:tint="@color/navy"
             app:fabCustomSize="35dp"
             app:shapeAppearance="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
-            android:backgroundTint="@color/navy"
+            android:backgroundTint="@color/white"
             app:borderWidth="0dp"/>
     </LinearLayout>
 
@@ -151,10 +151,10 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             app:srcCompat="@drawable/baseline_create_24"
-            app:tint="@android:color/white"
+            app:tint="@color/navy"
             app:fabCustomSize="35dp"
             app:shapeAppearance="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
-            android:backgroundTint="@color/navy"
+            android:backgroundTint="@color/white"
             app:borderWidth="0dp"/>
     </LinearLayout>
 
@@ -182,10 +182,10 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             app:srcCompat="@drawable/baseline_post_add_24"
-            app:tint="@android:color/white"
+            app:tint="@color/navy"
             app:fabCustomSize="35dp"
             app:shapeAppearance="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
-            android:backgroundTint="@color/navy"
+            android:backgroundTint="@color/white"
             app:borderWidth="0dp"/>
     </LinearLayout>
 

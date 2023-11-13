@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.search_category.SearchCategoryFragment">
+    tools:context=".ui.search_location.SearchLocationFragment">
 
 
     <TextView
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="10dp"
-        android:text="카테고리 검색"
+        android:text="지역별 검색"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -42,7 +42,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/resultTv"
-        android:fillViewport="true">경
+        android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -50,7 +50,7 @@
             android:padding="16dp">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/resultCategoryRecyclerView"
+                android:id="@+id/resultLocationRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:layout_editor_absoluteX="16dp"
