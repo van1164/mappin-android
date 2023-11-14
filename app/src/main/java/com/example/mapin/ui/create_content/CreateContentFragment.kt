@@ -26,7 +26,6 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -85,19 +84,20 @@ class CreateContentFragment : Fragment() {
             Log.d("XXXXXXXXXXXXXXXX", image.toString())
             GlobalScope.launch {
                 val info = Info(
-                    "의류",
+                    "전자기기",
                     binding.editTextText2.text.toString(),
-                    "sd",
-                    "sdf",
+                    "삼성동",
+                    "2023-01-01",
                     binding.editTextText.text.toString(),
+                    127.0764451494671,
                     37.24793398172821,
-                    127.0764451494671
+
                 )
                 val json = Gson().toJson(info)
                 image?.let { it1 ->
                     CreateService.create().create(
                         authorization = "Bearer ${token}",
-                        MultipartBody.Part.createFormData("sdf","sdf",BitmapRequestBody(it1)),
+                        MultipartBody.Part.createFormData("image","sdf.png",BitmapRequestBody(it1)),
                         RequestBody.create("application/json".toMediaTypeOrNull(),json)
                     ).execute()
                 }

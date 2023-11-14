@@ -7,9 +7,9 @@ import okhttp3.RequestBody
 import okio.BufferedSink
 
 class BitmapRequestBody(private val bitmap: Bitmap) : RequestBody() {
-    override fun contentType(): MediaType = "image/jpeg".toMediaType()
+    override fun contentType(): MediaType = "image/png".toMediaType()
 
     override fun writeTo(sink: BufferedSink) {
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 99, sink.outputStream())
+        bitmap.compress(Bitmap.CompressFormat.PNG, 99, sink.outputStream())
     }
 }
