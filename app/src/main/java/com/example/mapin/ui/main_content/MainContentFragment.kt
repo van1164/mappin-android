@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mapin.DataStoreApplication
 import com.example.mapin.MainActivity
@@ -76,6 +77,8 @@ class MainContentFragment : Fragment() {
         }
         binding.fab4.setOnClickListener {
             //TODO:게시물 작성
+            findNavController().navigate(R.id.action_FirstFragment_to_createPostFragment)
+
         }
         binding.fab5.setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_createContentFragment)
@@ -83,12 +86,17 @@ class MainContentFragment : Fragment() {
         }
 
         val mainRecyclerView = binding.mainContentRecyclerView
+        val mainRecyclerView2 = binding.mainContentRecyclerView2
         token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhc2Rmc2FmIiwicm9sZSI6IkFETUlOIiwiZXhwIjoxNzAwNjQ3Nzk4fQ.eNsDDuwUT5M-vKnmD417nAfoDC--jlBRevDjipd7_D8ISrBW05xwAK0Qu1xciSvHrfIDe7dus5xWKjiEIGoX4A"
 
         val item = listOf<ContentData>()
         val mainRecyclerAdapter = MainContentAdapter()
         mainRecyclerView.adapter = mainRecyclerAdapter
-        mainRecyclerView.layoutManager = LinearLayoutManager(context)
+
+        mainRecyclerView2.adapter = mainRecyclerAdapter
+        //mainRecyclerView.layoutManager = LinearLayoutManager(context)
+        mainRecyclerView.layoutManager = GridLayoutManager(requireActivity(),5, GridLayoutManager.HORIZONTAL, false)
+        mainRecyclerView2.layoutManager = GridLayoutManager(requireActivity(),5, GridLayoutManager.HORIZONTAL, false)
         SearchMainListInterface.create()
             .searchList("Bearer ${token}","127.047377408384","37.517331925853")
             .enqueue(object : Callback<MainListResponse> {
@@ -105,6 +113,8 @@ class MainContentFragment : Fragment() {
                     Log.d("XXXXXXXXXXXXXXXXXXXXXXX", "response.body().toString()")
                 }
             })
+
+
 
     }
     private fun convertMainListToContentData(mainListResponse: MainListResponse?): List<ContentData> {

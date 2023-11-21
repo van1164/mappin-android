@@ -87,6 +87,38 @@ interface SearchShopService {
     ): Call<SearchShopResponse>
 
 
+    companion object {
+        private const val BASE_URL = "http://hohoseung.shop/"
+
+        private val gson =
+            GsonBuilder()
+                .setLenient()
+                .create()
+        val interceptor = HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
+        val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
+
+        fun create(): SearchShopService {
+            return Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build()
+                .create(SearchShopService::class.java)
+        }
+    }
+}
+
+interface SearchPostService {
+
+    @GET("/lost/search/dong")
+    fun search(
+        @Header("Authorization") authorization: String,
+        @Query("name") dong_name: String
+    ): Call<SearchLocationResponse>
+
+
     companion object{
         private const val BASE_URL = "http://hohoseung.shop/"
 
@@ -99,13 +131,13 @@ interface SearchShopService {
         }
         val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
 
-        fun create() : SearchShopService {
+        fun create() : SearchLocationService {
             return Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
-                .create(SearchShopService::class.java)
+                .create(SearchLocationService::class.java)
         }
     }
 }
