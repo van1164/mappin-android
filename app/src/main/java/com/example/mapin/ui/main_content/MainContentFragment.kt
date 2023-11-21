@@ -84,6 +84,12 @@ class MainContentFragment : Fragment() {
             findNavController().navigate(R.id.action_FirstFragment_to_mainLostFragment)
         }
 
+        binding.btnPost.setOnClickListener{
+            findNavController().navigate(R.id.action_FirstFragment_to_mainPostFragment)
+        }
+
+
+
     }
 
 

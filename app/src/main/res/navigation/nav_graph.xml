@@ -35,6 +35,9 @@
         <action
             android:id="@+id/action_FirstFragment_to_mainLostFragment"
             app:destination="@+id/mainLostFragment"/>
+        <action
+            android:id="@+id/action_FirstFragment_to_mainPostFragment"
+            app:destination="@id/mainPostFragment" />
     </fragment>
 
     <fragment
@@ -117,6 +120,18 @@
         android:id="@+id/createPostFragment"
         android:name="com.example.mapin.ui.create_post.CreatePostFragment"
         android:label="CreatePostFragment"/>
+    <fragment
+        android:id="@+id/mainPostFragment"
+        android:name="com.example.mapin.ui.main_post.MainPostFragment"
+        android:label="MainPostFragment" >
+        <action
+            android:id="@+id/action_mainPostFragment_to_mainPostDetailFragment"
+            app:destination="@id/mainPostDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainPostDetailFragment"
+        android:name="com.example.mapin.ui.main_post_detail.MainPostDetailFragment"
+        android:label="MainPostDetailFragment" />
 
 
 </navigation>

@@ -41,4 +41,5 @@ data class ShopItem(
     val createdAt: String,
     val imageUrl: String,
     val shopName: String,
+    val foundDate : String
 )
