@@ -102,9 +102,11 @@ class MainContentFragment : Fragment() {
 
         val adImage1: Bitmap = BitmapFactory.decodeResource(resources, R.drawable.ad1)
         val adImage2: Bitmap = BitmapFactory.decodeResource(resources, R.drawable.ad2)
+        val adImage3: Bitmap = BitmapFactory.decodeResource(resources, R.drawable.ad3)
+        val adImage4: Bitmap = BitmapFactory.decodeResource(resources, R.drawable.ad4)
 
 
-        adRecyclerAdapter.submitList(listOf(AdItem(adImage1),AdItem(adImage2)))
+        adRecyclerAdapter.submitList(listOf(AdItem(adImage1),AdItem(adImage2), AdItem(adImage3), AdItem(adImage4)))
         startAutoScroll(adRecyclerAdapter, AdRecyclerView)
 
 

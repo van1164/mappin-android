@@ -18,6 +18,7 @@ import com.example.mapin.network.service.SearchCategoryService
 import com.example.mapin.network.service.SearchLocationService
 import com.example.mapin.ui.main_content.ContentData
 import com.example.mapin.ui.main_content.MainContentAdapter
+import com.example.mapin.util.DateUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
@@ -82,11 +83,12 @@ class ResultLocationFragment : Fragment() {
                                     Log.d("ResultLocationService",response.body().toString())
                                     binding.resultTv.text="${dong} 에 대해,\n${response.body()!!.losts.size}개의 결과를 찾았습니다."
                                     for(i:Int in 0 until response.body()!!.losts.size){
+                                        val formattedDateTime = DateUtils.formatDateTime(response.body()!!.losts[i].createdAt)
                                         item.add(ContentData(
                                             id = response.body()!!.losts[i].id,
                                             imageUrl = response.body()!!.losts[i].imageUrl,
                                             title = response.body()!!.losts[i].title,
-                                            time = response.body()!!.losts[i].createdAt,
+                                            time = formattedDateTime,
                                             location = response.body()!!.losts[i].dong))
                                         resultRecyclerAdapter.submitList(item)
                                     }

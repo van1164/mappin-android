@@ -30,6 +30,7 @@ class AdAdapter : ListAdapter<AdItem,AdAdapter.MyViewHolder>(diffUtil) {
 
             binding.imgRv.apply {
                 Glide.with(this.context).load(item.image).into(this)
+                clipToOutline = true
             }
         }
     }
