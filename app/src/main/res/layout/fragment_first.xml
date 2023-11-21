@@ -20,35 +20,237 @@
             android:orientation="vertical"
             android:padding="16dp">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="@drawable/rectangle_navy"
+                android:elevation="5dp"
+                android:orientation="vertical"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="60dp"
+                    android:text="분실물을 검색해보세요."
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView4"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginStart="50dp">
+
+                    <ImageButton
+                        android:id="@+id/btnCategory"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:background="@drawable/circle"
+                        android:elevation="4dp"
+                        android:src="@drawable/baseline_category_24"
+                        app:tint="@color/navy" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:text="제품별"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView4"
+                    android:layout_marginTop="50dp">
+
+                    <ImageButton
+                        android:id="@+id/btnLocation"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:background="@drawable/circle"
+                        android:elevation="4dp"
+                        android:src="@drawable/baseline_location_on_24"
+                        app:tint="@color/navy" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:text="지역별"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView4"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginEnd="50dp">
+
+                    <ImageButton
+                        android:id="@+id/btnShop"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:background="@drawable/circle"
+                        android:elevation="4dp"
+                        android:src="@drawable/baseline_storefront_24"
+                        app:tint="@color/navy" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:text="가게명"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:textColor="@color/navy"
                 android:textSize="20sp"
-                android:text="분실물 조회"
+                android:text="내 주변의 분실물을 찾아보세요."
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btnNearbyLost"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="@drawable/rectangle_green"
+                android:elevation="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="20dp"
+                    android:src="@drawable/baseline_search_24"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/white" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="주변 분실물 조회"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/view"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.068"
+                    app:layout_constraintStart_toEndOf="@+id/imageView2" />
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="200dp"
+                    android:layout_height="2dp"
+                    android:layout_marginStart="12dp"
+                    android:background="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageView2"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.563" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:text="분실물을 애타게 찾고 있는\n사람들이 있어요."
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btnPost"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="@drawable/rectangle_green2"
+                android:elevation="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="20dp"
+                    android:src="@drawable/baseline_article_24"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/white" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="게시물 조회"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/view2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.068"
+                    app:layout_constraintStart_toEndOf="@+id/imageView3" />
+
+                <View
+                    android:id="@+id/view2"
+                    android:layout_width="200dp"
+                    android:layout_height="2dp"
+                    android:layout_marginStart="12dp"
+                    android:background="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageView3"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.563" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/mainContentRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textColor="@color/navy"
-                android:textSize="20sp"
-                android:text="게시물 조회"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"/>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/mainContentRecyclerView2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
@@ -60,99 +262,6 @@
         android:layout_height="match_parent"
         android:background="#74000000"
         android:visibility="gone" />
-
-    <LinearLayout
-        android:id="@+id/fabLayout1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="@dimen/fab_margin"
-        android:layout_marginBottom="16dp"
-        android:clipToPadding="false"
-        android:gravity="center_vertical"
-        android:visibility="gone">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/fab_menu1"
-            android:textStyle="bold"
-            android:textColor="@color/white"/>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            app:srcCompat="@drawable/baseline_storefront_24"
-            app:tint="@color/navy"
-            app:fabCustomSize="35dp"
-            app:shapeAppearance="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
-            android:backgroundTint="@color/white"
-            app:borderWidth="0dp"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/fabLayout2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="@dimen/fab_margin"
-        android:layout_marginBottom="16dp"
-        android:gravity="center_vertical"
-        android:visibility="gone">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/fab_menu2"
-            android:textStyle="bold"
-            android:textColor="@color/white"/>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            app:srcCompat="@drawable/baseline_location_on_24"
-            app:tint="@color/navy"
-            app:fabCustomSize="35dp"
-            app:shapeAppearance="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
-            android:backgroundTint="@color/white"
-            app:borderWidth="0dp"/>
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/fabLayout3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="@dimen/fab_margin"
-        android:layout_marginBottom="16dp"
-        android:clipToPadding="false"
-        android:gravity="center_vertical"
-        android:visibility="gone">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/fab_menu3"
-            android:textStyle="bold"
-            android:textColor="@color/white"/>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            app:srcCompat="@drawable/baseline_category_24"
-            app:tint="@color/navy"
-            app:fabCustomSize="35dp"
-            app:shapeAppearance="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
-            android:backgroundTint="@color/white"
-            app:borderWidth="0dp"/>
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/fabLayout4"

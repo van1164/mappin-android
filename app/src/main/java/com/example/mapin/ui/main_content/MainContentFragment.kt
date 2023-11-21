@@ -37,7 +37,6 @@ class MainContentFragment : Fragment() {
 
     private val binding get() = _binding!!
     private val viewModel: MainContentViewModel by viewModels()
-    private lateinit var token : String
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -57,24 +56,8 @@ class MainContentFragment : Fragment() {
                 closeFABMenu()
             }
         }
-
         binding.fabBGLayout.setOnClickListener { closeFABMenu() }
 
-        binding.fab1.setOnClickListener {
-            //TODO:가게 이름으로 검색
-            findNavController().navigate(R.id.action_FirstFragment_to_searchShop)
-
-        }
-        binding.fab2.setOnClickListener {
-            //TODO:지역별 검색
-            findNavController().navigate(R.id.action_FirstFragment_to_searchLocation)
-
-        }
-        binding.fab3.setOnClickListener {
-            //TODO:제품별 검색
-            findNavController().navigate(R.id.action_FirstFragment_to_searchCategory)
-
-        }
         binding.fab4.setOnClickListener {
             //TODO:게시물 작성
             findNavController().navigate(R.id.action_FirstFragment_to_createPostFragment)
@@ -85,83 +68,43 @@ class MainContentFragment : Fragment() {
             //TODO:분실물 등록
         }
 
-        val mainRecyclerView = binding.mainContentRecyclerView
-        val mainRecyclerView2 = binding.mainContentRecyclerView2
-        token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhc2Rmc2FmIiwicm9sZSI6IkFETUlOIiwiZXhwIjoxNzAwNjQ3Nzk4fQ.eNsDDuwUT5M-vKnmD417nAfoDC--jlBRevDjipd7_D8ISrBW05xwAK0Qu1xciSvHrfIDe7dus5xWKjiEIGoX4A"
-
-        val item = listOf<ContentData>()
-        val mainRecyclerAdapter = MainContentAdapter()
-        mainRecyclerView.adapter = mainRecyclerAdapter
-
-        mainRecyclerView2.adapter = mainRecyclerAdapter
-        //mainRecyclerView.layoutManager = LinearLayoutManager(context)
-        mainRecyclerView.layoutManager = GridLayoutManager(requireActivity(),5, GridLayoutManager.HORIZONTAL, false)
-        mainRecyclerView2.layoutManager = GridLayoutManager(requireActivity(),5, GridLayoutManager.HORIZONTAL, false)
-        SearchMainListInterface.create()
-            .searchList("Bearer ${token}","127.047377408384","37.517331925853")
-            .enqueue(object : Callback<MainListResponse> {
-                override fun onResponse(
-                    call: Call<MainListResponse>,
-                    response: Response<MainListResponse>
-                ) {
-                    Log.d("SearchMainListInterface", response.body().toString())
-                    val itemList = convertMainListToContentData(response.body())
-                    mainRecyclerAdapter.submitList(itemList)
-
-                }
-                override fun onFailure(call: Call<MainListResponse>, t: Throwable) {
-                    Log.d("XXXXXXXXXXXXXXXXXXXXXXX", "response.body().toString()")
-                }
-            })
-
-
-
-    }
-    private fun convertMainListToContentData(mainListResponse: MainListResponse?): List<ContentData> {
-        return mainListResponse?.losts?.map{ mainListItem->
-            ContentData(
-                imageUrl = mainListItem.imageUrl,
-                title = mainListItem.title,
-                time = mainListItem.createdAt,
-                id = mainListItem.id,
-                location = "null"
-                //location = mainListItem.dong -->현재 null 오류 뜸.
-            )
+        binding.btnCategory.setOnClickListener {
+            findNavController().navigate(R.id.action_FirstFragment_to_searchCategory)
         }
-            ?: listOf<ContentData>()
+
+        binding.btnLocation.setOnClickListener {
+            findNavController().navigate(R.id.action_FirstFragment_to_searchLocation)
+        }
+
+        binding.btnShop.setOnClickListener {
+            findNavController().navigate(R.id.action_FirstFragment_to_searchShop)
+        }
+
+        binding.btnNearbyLost.setOnClickListener {
+            findNavController().navigate(R.id.action_FirstFragment_to_mainLostFragment)
+        }
+
     }
+
 
     private fun showFABMenu() {
-        binding.fabLayout1.visibility = View.VISIBLE
-        binding.fabLayout2.visibility = View.VISIBLE
-        binding.fabLayout3.visibility = View.VISIBLE
         binding.fabLayout4.visibility = View.VISIBLE
         binding.fabLayout5.visibility = View.VISIBLE
         binding.fabBGLayout.visibility = View.VISIBLE
         binding.fab.animate().rotationBy(45F)
-        binding.fabLayout1.animate().translationY(-resources.getDimension(R.dimen.standard_75))
-        binding.fabLayout2.animate().translationY(-resources.getDimension(R.dimen.standard_120))
-        binding.fabLayout3.animate().translationY(-resources.getDimension(R.dimen.standard_165))
-        binding.fabLayout4.animate().translationY(-resources.getDimension(R.dimen.standard_210))
-        binding.fabLayout5.animate().translationY(-resources.getDimension(R.dimen.standard_255))
+        binding.fabLayout4.animate().translationY(-resources.getDimension(R.dimen.standard_75))
+        binding.fabLayout5.animate().translationY(-resources.getDimension(R.dimen.standard_120))
     }
 
     private fun closeFABMenu() {
         binding.fabBGLayout.visibility = View.GONE
         binding.fab.animate().rotation(0F)
-        binding.fabLayout1.animate().translationY(0f)
-        binding.fabLayout2.animate().translationY(0f)
-        binding.fabLayout3.animate().translationY(0f)
-        binding.fabLayout3.animate().translationY(0f)
         binding.fabLayout4.animate().translationY(0f)
         binding.fabLayout5.animate().translationY(0f)
             .setListener(object : Animator.AnimatorListener {
                 override fun onAnimationStart(animator: Animator) {}
                 override fun onAnimationEnd(animator: Animator) {
                     if (View.GONE == binding.fabBGLayout.visibility) {
-                        binding.fabLayout1.visibility = View.GONE
-                        binding.fabLayout2.visibility = View.GONE
-                        binding.fabLayout3.visibility = View.GONE
                         binding.fabLayout4.visibility = View.GONE
                         binding.fabLayout5.visibility = View.GONE
                     }
