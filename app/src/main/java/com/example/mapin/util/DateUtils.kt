@@ -27,10 +27,10 @@ object DateUtils {
 
         return if (diffInHours < 24) {
             // 같은 날짜인 경우
-            "$diffInHours hours ago"
+            "$diffInHours 시간 전"
         } else {
             // 다른 날짜인 경우
-            val outputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+            val outputFormat = SimpleDateFormat("yyyy-MM-dd HH시", Locale.getDefault())
             outputFormat.format(date)
         }
     }

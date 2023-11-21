@@ -17,6 +17,7 @@ import com.example.mapin.network.model.DetailResponse
 import com.example.mapin.network.model.SearchCategoryResponse
 import com.example.mapin.network.service.DetailService
 import com.example.mapin.ui.main_content.ContentData
+import com.example.mapin.util.DateUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
@@ -88,9 +89,11 @@ class MainContentDetailFragment : Fragment() {
                                     mapView.addPOIItem(marker)
                                     binding.mapView.addView(mapView)
 
+                                    val formattedDateTime = DateUtils.formatDateTime(response.body()!!.createdAt)
+
                                     binding.detailContentText.text = response.body()!!.content
                                     binding.DetailTitleText.text = response.body()!!.title
-                                    binding.detailTimeText.text = response.body()!!.createdAt
+                                    binding.detailTimeText.text = formattedDateTime
                                     Glide.with(this@MainContentDetailFragment)
                                         .load(response.body()!!.image)
                                         .into(binding.detailImage)
