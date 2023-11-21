@@ -48,3 +48,38 @@ interface CreateService {
         }
     }
 }
+
+interface CreatePostService {
+    @Multipart
+    @PUT("/post/register")
+    fun create(
+        @Header("Authorization") authorization: String,
+        @Part image: MultipartBody.Part,
+        @Part("info") info: RequestBody
+    ): Call<Any>
+
+
+    companion object {
+        private const val BASE_URL = "http://hohoseung.shop/"
+
+        private val gson =
+            GsonBuilder()
+                .setLenient()
+                .create()
+        val interceptor = HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
+        val client =
+            OkHttpClient.Builder().addInterceptor(interceptor).readTimeout(300, TimeUnit.SECONDS)
+                .connectTimeout(300, TimeUnit.SECONDS).build()
+
+        fun create(): CreatePostService {
+            return Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build()
+                .create(CreatePostService::class.java)
+        }
+    }
+}

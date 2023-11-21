@@ -29,6 +29,9 @@
         <action
             android:id="@+id/action_FirstFragment_to_createContentFragment"
             app:destination="@id/createContentFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_createPostFragment"
+            app:destination="@+id/createPostFragment"/>
     </fragment>
 
     <fragment
@@ -101,5 +104,9 @@
         android:id="@+id/createContentFragment"
         android:name="com.example.mapin.ui.create_content.CreateContentFragment"
         android:label="CreateContentFragment" />
+    <fragment
+        android:id="@+id/createPostFragment"
+        android:name="com.example.mapin.ui.create_post.CreatePostFragment"
+        android:label="CreatePostFragment"/>
 
 </navigation>
