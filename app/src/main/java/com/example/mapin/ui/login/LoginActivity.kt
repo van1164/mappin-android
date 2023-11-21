@@ -90,7 +90,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun lginToServer(user: User) {
         LoginService.create()
-            .login(LoginRequest("asdfsaf", "USER", user.properties!!["nickname"]!!))
+            .login(LoginRequest("asdfsaf@asd.com", "USER", user.properties!!["nickname"]!!))
             .enqueue(object :
                 Callback<LoginResponse> {
                 override fun onResponse(

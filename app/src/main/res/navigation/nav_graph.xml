@@ -32,6 +32,9 @@
         <action
             android:id="@+id/action_FirstFragment_to_createPostFragment"
             app:destination="@+id/createPostFragment"/>
+        <action
+            android:id="@+id/action_FirstFragment_to_mainLostFragment"
+            app:destination="@+id/mainLostFragment"/>
     </fragment>
 
     <fragment
@@ -39,6 +42,12 @@
         android:name="com.example.mapin.ui.main_content_detail.MainContentDetailFragment"
         android:label="fragment_main_content_detail"
         tools:layout="@layout/fragment_main_content_detail" />
+
+    <!--주변 분실물-->
+    <fragment
+        android:id="@+id/mainLostFragment"
+        android:name="com.example.mapin.ui.main_lost.MainLostFragment"
+        android:label="MainLostFragment"/>
 
     <!--Search-->
     <fragment
@@ -108,5 +117,6 @@
         android:id="@+id/createPostFragment"
         android:name="com.example.mapin.ui.create_post.CreatePostFragment"
         android:label="CreatePostFragment"/>
+
 
 </navigation>
