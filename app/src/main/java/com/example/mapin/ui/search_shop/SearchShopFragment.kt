@@ -100,7 +100,7 @@ class SearchShopFragment : Fragment() {
                                                     imageUrl = response.body()!!.losts[i].imageUrl,
                                                     title = response.body()!!.losts[i].title,
                                                     time = response.body()!!.losts[i].createdAt,
-                                                    location = nameShop.toString()))
+                                                    location = response.body()!!.losts[i].shopName))
                                                 resultRecyclerAdapter.submitList(item)
                                             }
                                         }

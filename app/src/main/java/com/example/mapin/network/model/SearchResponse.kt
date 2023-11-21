@@ -26,6 +26,7 @@ data class CategoryItem(
     val title: String,
     val createdAt: String,
     val imageUrl: String,
+    val dong: String
 )
 
 data class SearchShopResponse(

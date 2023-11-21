@@ -93,7 +93,7 @@ class MainLostFragment : Fragment() {
                 title = mainListItem.title,
                 time = mainListItem.createdAt,
                 id = mainListItem.id,
-                location = "null"
+                location = mainListItem.dong
                 //location = mainListItem.dong -->현재 null 오류 뜸.
             )
         }
