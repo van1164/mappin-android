@@ -24,6 +24,7 @@ import com.example.mapin.network.service.LoginService
 import com.example.mapin.network.service.SearchMainListInterface
 import com.example.mapin.ui.main_content.ContentData
 import com.example.mapin.ui.main_content.MainContentAdapter
+import com.example.mapin.util.DateUtils
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -83,17 +84,16 @@ class MainLostFragment : Fragment() {
                 }
             })
 
-
-
     }
     private fun convertMainListToContentData(mainListResponse: MainListResponse?): List<ContentData> {
         return mainListResponse?.losts?.map{ mainListItem->
+            val formattedDateTime = DateUtils.formatDateTime(mainListItem.createdAt)
             ContentData(
                 imageUrl = mainListItem.imageUrl,
                 title = mainListItem.title,
-                time = mainListItem.createdAt,
+                time = formattedDateTime,
                 id = mainListItem.id,
-                location = "null"
+                location = mainListItem.dong
                 //location = mainListItem.dong -->현재 null 오류 뜸.
             )
         }
