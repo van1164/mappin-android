@@ -13,7 +13,9 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.mapin.DataStoreApplication
+import com.example.mapin.R
 import com.example.mapin.databinding.FragmentCreateContentBinding
 import com.example.mapin.network.model.Info
 import com.example.mapin.network.service.BitmapRequestBody
@@ -75,8 +77,8 @@ class CreateContentFragment : Fragment() {
         val mapView = MapView(requireContext())
         mapView.setMapCenterPoint(
             MapPoint.mapPointWithGeoCoord(
-                37.24793398172821,
-                127.0764451494671
+                37.240995,
+                127.079732
             ), false
         )
         binding.createMapView.addView(mapView)
@@ -89,8 +91,8 @@ class CreateContentFragment : Fragment() {
                     "삼성동",
                     "2023-01-01",
                     binding.editTextText.text.toString(),
-                    127.0764451494671,
-                    37.24793398172821,
+                    127.079732,
+                    37.240995,
 
                 )
                 val json = Gson().toJson(info)
@@ -102,6 +104,8 @@ class CreateContentFragment : Fragment() {
                     ).execute()
                 }
             }
+            findNavController().navigate(R.id.action_createContentFragment_to_mainLostFragment)
+
         }
 
         binding.imageSelect.setOnClickListener {

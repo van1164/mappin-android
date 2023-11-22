@@ -115,7 +115,11 @@
     <fragment
         android:id="@+id/createContentFragment"
         android:name="com.example.mapin.ui.create_content.CreateContentFragment"
-        android:label="CreateContentFragment" />
+        android:label="CreateContentFragment" >
+        <action
+            android:id="@+id/action_createContentFragment_to_mainLostFragment"
+            app:destination="@id/mainLostFragment" />
+    </fragment>
     <fragment
         android:id="@+id/createPostFragment"
         android:name="com.example.mapin.ui.create_post.CreatePostFragment"
