@@ -60,6 +60,16 @@
     <string name="fab_menu4">게시물 작성</string>
     <string name="fab_menu5">분실물 등록</string>
 
+    <!-- 카테고리 -->
+    <string-array name="select_category">
+        <item>의류</item>
+        <item>귀금속</item>
+        <item>전자기기</item>
+        <item>사무용품</item>
+        <item>도서용품</item>
+        <item>기타</item>
+    </string-array>
+
     <!-- 지역 -->
     <string-array name="select_region_si">
         <item>서울특별시</item>

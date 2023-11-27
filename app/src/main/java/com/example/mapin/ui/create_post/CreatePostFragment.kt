@@ -13,10 +13,13 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.mapin.DataStoreApplication
+import com.example.mapin.R
 import com.example.mapin.databinding.FragmentCreateContentBinding
 import com.example.mapin.databinding.FragmentCreatePostBinding
 import com.example.mapin.network.model.Info
+import com.example.mapin.network.model.Info_Post
 import com.example.mapin.network.service.BitmapRequestBody
 import com.example.mapin.network.service.CreatePostService
 import com.example.mapin.network.service.CreateService
@@ -85,14 +88,13 @@ class CreatePostFragment : Fragment() {
         binding.createButton.setOnClickListener {
             Log.d("XXXXXXXXXXXXXXXX", image.toString())
             GlobalScope.launch {
-                val info = Info(
-                    "전자기기",
-                    binding.editTextText2.text.toString(),
-                    "삼성동",
-                    "2023-01-01",
-                    binding.editTextText.text.toString(),
-                    127.0764451494671,
-                    37.24793398172821,
+                val info = Info_Post(
+                    category = "전자기기",
+                    content = binding.editTextText2.text.toString(),
+                    lostDate = "2023-01-01",
+                    title = binding.editTextText.text.toString(),
+                    x = 127.0764451494671,
+                    y = 37.24793398172821,
 
                 )
                 val json = Gson().toJson(info)
@@ -104,6 +106,7 @@ class CreatePostFragment : Fragment() {
                     ).execute()
                 }
             }
+            findNavController().navigate(R.id.action_createPostFragment_to_mainLostFragment)
         }
 
         binding.imageSelect.setOnClickListener {
