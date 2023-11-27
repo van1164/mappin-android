@@ -10,6 +10,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -82,29 +84,48 @@ class CreateContentFragment : Fragment() {
             ), false
         )
         binding.createMapView.addView(mapView)
-        binding.createButton.setOnClickListener {
-            Log.d("XXXXXXXXXXXXXXXX", image.toString())
-            GlobalScope.launch {
-                val info = Info(
-                    "전자기기",
-                    binding.editTextText2.text.toString(),
-                    "삼성동",
-                    "2023-01-01",
-                    binding.editTextText.text.toString(),
-                    127.079732,
-                    37.240995,
 
-                )
-                val json = Gson().toJson(info)
-                image?.let { it1 ->
-                    CreateService.create().create(
-                        authorization = "Bearer ${token}",
-                        MultipartBody.Part.createFormData("image","sdf.png",BitmapRequestBody(it1)),
-                        RequestBody.create("application/json".toMediaTypeOrNull(),json)
-                    ).execute()
+        var categoryArray = resources.getStringArray(R.array.select_category)
+        var arrayAdapter = ArrayAdapter(requireContext(), R.layout.region_dropdown_item, categoryArray)
+        binding.autoCompleteTextView.setAdapter(arrayAdapter)
+        var category:String? = null
+
+        binding.autoCompleteTextView.setOnItemClickListener { parent, view, position, id ->
+
+            category = parent.getItemAtPosition(position).toString()
+            Log.d("CreateContentFragment", category!!)
+        }
+
+        binding.createButton.setOnClickListener {
+            Log.d("CreateContentFragment", category!!)
+            if(category!=null){
+                Log.d("XXXXXXXXXXXXXXXX", image.toString())
+
+                GlobalScope.launch {
+                    val info = Info(
+                        category = category!!,
+                        binding.editTextText2.text.toString(),
+                        "영통동",
+                        "2023-01-01",
+                        binding.editTextText.text.toString(),
+                        x = 127.079732,
+                        y = 37.240995,
+                        )
+                    val json = Gson().toJson(info)
+                    image?.let { it1 ->
+                        CreateService.create().create(
+                            authorization = "Bearer ${token}",
+                            MultipartBody.Part.createFormData("image","sdf.png",BitmapRequestBody(it1)),
+                            RequestBody.create("application/json".toMediaTypeOrNull(),json)
+                        ).execute()
+                    }
                 }
+                findNavController().navigate(R.id.action_createContentFragment_to_mainLostFragment)
             }
-            findNavController().navigate(R.id.action_createContentFragment_to_mainLostFragment)
+            else {
+                Toast.makeText(requireContext(), "category를 입력해주세요!", Toast.LENGTH_SHORT).show()
+            }
+
 
         }
 
